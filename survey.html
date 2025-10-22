@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>upNort - Survey Section</title>
+<style>
+  body { font-family: Arial, sans-serif; margin:0; padding:20px; background:#f5f5f5; }
+  .container { max-width:900px; margin:0 auto; }
+  .banner-ad { background:#fff; border:1px solid #ddd; border-radius:8px; padding:20px; text-align:center; margin:20px 0; min-height:90px; display:flex; align-items:center; justify-content:center; color:#999; font-size:14px; }
+  h1,h2 { color:#333; }
+  .post { background:#fff; border:1px solid #ddd; padding:15px; margin-bottom:15px; border-radius:8px; box-shadow:0 2px 4px rgba(0,0,0,0.1); overflow:hidden; transition:max-height 0.5s ease; }
+  .post h3 { margin-top:0; color:#10b981; }
+  .post-meta { color:#666; font-size:0.9em; margin:10px 0; }
+  .share-buttons { display:flex; gap:12px; margin-top:10px; flex-wrap:wrap; align-items:center; }
+  .share-btn { cursor:pointer; display:flex; align-items:center; justify-content:center; transition:transform 0.2s ease, opacity 0.2s ease; }
+  .share-btn:hover { transform: scale(1.2); opacity:0.8; }
+  .share-btn img { width:28px; height:28px; object-fit:contain; }
+  input, textarea, button { display:block; margin:5px 0; padding:10px; width:100%; max-width:500px; box-sizing:border-box; }
+  input, textarea { border:1px solid #ddd; border-radius:5px; }
+  button { cursor:pointer; background:#10b981; color:white; border:none; border-radius:5px; font-weight:bold; max-width:200px; }
+  button:hover { background:#059669; }
+  .read-more-btn { font-size:0.9em; padding:6px 12px; margin-bottom:10px; }
+  #survey-posts-container { margin-bottom:20px; }
+  .native-ad { background:#ecfdf5; border:1px solid #6ee7b7; border-radius:8px; padding:15px; margin:20px 0; }
+  .native-ad-label { font-size:11px; color:#065f46; font-weight:bold; margin-bottom:8px; }
+  .back-button { background:#6b7280; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; margin-bottom:20px; font-weight:bold; }
+  .back-button:hover { background:#4b5563; }
+  @media(max-width:768px){ .share-buttons { flex-wrap:wrap; gap:10px; } .share-btn img { width:24px; height:24px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="banner-ad">728x90 Banner Ad Space</div>
+
+  <div id="list-view">
+    <h1>📊 Survey Section</h1>
+
+    <div class="native-ad">
+      <div class="native-ad-label">SPONSORED</div>
+      <h3>Participate in surveys to earn rewards</h3>
+      <p>Take surveys, answer questions, and earn points redeemable for rewards.</p>
+    </div>
+
+    <div id="survey-posts-container"></div>
+
+    <h2>Add a Survey</h2>
+    <form id="survey-post-form">
+      <input type="text" id="survey-title" placeholder="Survey Title" required />
+      <textarea id="survey-content" placeholder="Survey Details / Instructions" rows="5" required></textarea>
+      <button type="submit">Submit Survey</button>
+    </form>
+  </div>
+
+  <div id="single-view" class="single-post-view">
+    <button class="back-button" onclick="goBackToList()">← Back to All Surveys</button>
+    <div id="single-post-content"></div>
+  </div>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  const supabaseUrl="https://qpwpvehfriedhafjmzij.supabase.co";
+  const supabaseKey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwd3B2ZWhmcmllZGhhZmptemlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA2NTI2ODMsImV4cCI6MjA3NjIyODY4M30.R5ITHyu5OGUE_Jw0zMmLzpL7SjPEvJzwSQamwS2iCow";
+  const {createClient}=window.supabase;
+  const supabase=createClient(supabaseUrl,supabaseKey);
+
+  const postsContainer=document.getElementById('survey-posts-container');
+  const form=document.getElementById('survey-post-form');
+  let allPosts=[];
+
+  async function fetchSurveyPosts(){
+    const {data,error}=await supabase.from('posts').select('*').eq('section','survey').order('created_at',{ascending:false});
+    if(error){ console.error(error); postsContainer.innerHTML="<p>Failed to load surveys</p>"; return;}
+    allPosts=data||[];
+    displayAllPosts(allPosts);
+  }
+
+  function displayAllPosts(data){
+    postsContainer.innerHTML="";
+    if(!data.length){ postsContainer.innerHTML="<p>No surveys yet.</p>"; return;}
+    data.forEach(post=>{
+      const postUrl=`${window.location.origin}${window.location.pathname}?post=${post.id}`;
+      const div=document.createElement('div');
+      div.classList.add('post');
+      div.style.maxHeight="220px";
+      div.innerHTML=`
+        <h3>${post.title}</h3>
+        <p class="post-content">${post.content.substring(0,150)}${post.content.length>150?'...':''}</p>
+        <div class="post-meta">Posted on ${new Date(post.created_at).toLocaleDateString()}</div>
+        <button class="read-more-btn" data-id="${post.id}">Read More</button>
+        <div class="share-buttons">
+          <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}" target="_blank" title="Share on Facebook">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png">
+          </a>
+          <a class="share-btn" href="https://x.com/intent/tweet?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(post.title)}" target="_blank" title="Share on X">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg">
+          </a>
+          <a class="share-btn" href="https://instagram.com" target="_blank" title="Share on Instagram">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png">
+          </a>
+          <a class="share-btn" href="https://wa.me/?text=${encodeURIComponent(post.title+' '+postUrl)}" target="_blank" title="Share on WhatsApp">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+          </a>
+          <a class="share-btn" href="https://www.tiktok.com" target="_blank" title="Share on TikTok">
+            <img src="https://cdn-icons-png.flaticon.com/512/3046/3046125.png">
+          </a>
+          <a class="share-btn" href="https://t.me" target="_blank" title="Share on Telegram">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg">
+          </a>
+          <a class="share-btn" href="https://youtube.com" target="_blank" title="Share on YouTube">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg">
+          </a>
+          <a class="share-btn" href="#" onclick="navigator.clipboard.writeText('${postUrl}').then(()=>alert('Link copied!'))" title="Copy Link">
+            <img src="https://cdn-icons-png.flaticon.com/512/25/25284.png">
+          </a>
+        </div>
+      `;
+      postsContainer.appendChild(div);
+    });
+  }
+
+  postsContainer.addEventListener('click',e=>{
+    const rm=e.target.closest('.read-more-btn');
+    if(rm){
+      const parent=rm.closest('.post');
+      const contentEl=parent.querySelector('.post-content');
+      const fullText=allPosts.find(p=>p.id==rm.dataset.id).content;
+      if(rm.textContent==='Read More'){
+        contentEl.textContent=fullText;
+        parent.style.maxHeight="1000px";
+        rm.textContent='Read Less';
+      }else{
+        contentEl.textContent=fullText.substring(0,150)+(fullText.length>150?'...':'');
+        parent.style.maxHeight="220px";
+        rm.textContent='Read More';
+      }
+    }
+  });
+
+  window.goBackToList=()=>window.location.href=window.location.pathname;
+
+  fetchSurveyPosts();
+
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const title=document.getElementById('survey-title').value.trim();
+    const content=document.getElementById('survey-content').value.trim();
+    if(!title||!content) return alert("Please fill all fields");
+    const {error}=await supabase.from('posts').insert({section:'survey',title,content});
+    if(error){ alert(error.message||'Failed to add survey'); return;}
+    alert("Survey added!");
+    form.reset();
+    fetchSurveyPosts();
+  });
+});
+</script>
+</body>
+</html>
