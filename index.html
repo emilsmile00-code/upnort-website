@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UpNort - Discover, Engage, Earn</title>
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23ffcc00'/%3E%3Cstop offset='100%25' style='stop-color:%23ff6600'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M50 8 L85 27 L85 65 L50 84 L15 65 L15 27 Z' fill='none' stroke='url(%23g)' stroke-width='3'/%3E%3Cpath d='M44 68 L44 46 L34 46 L50 23 L66 46 L56 46 L56 68 Z' fill='url(%23g)'/%3E%3C/svg%3E">
+
+<!-- Open Graph Meta Tags -->
+<meta property="og:title" content="UpNort - Discover, Engage, Earn">
+<meta property="og:description" content="Join UpNort's immersive platform featuring gaming news, crypto insights, entertainment updates, surveys, and exclusive offerwalls.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://upnort.com">
+<meta property="og:image" content="https://upnort.com/og-image.jpg">
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UpNort - Discover, Engage, Earn">
+<meta name="twitter:description" content="Your gateway to gaming, crypto, entertainment, and rewards.">
+<meta name="twitter:image" content="https://upnort.com/og-image.jpg">
+
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif; }
+  body { background-color: #0f0f0f; color:#fff; line-height:1.6; }
+
+  .container { max-width:1200px; margin:0 auto; padding:0 20px; }
+  
+  nav { display:flex; justify-content:space-between; align-items:center; padding:20px 0; position: sticky; top: 0; background: #0f0f0f; z-index: 100; border-bottom: 1px solid #222; }
+  nav .logo { font-size: 1.5rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 12px; }
+  nav .nav-links { display: flex; }
+  
+  .logo-icon { width: 45px; height: 45px; position: relative; }
+  .logo-icon svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 12px rgba(255,204,0,0.4)); transition: transform 0.3s; }
+  .logo:hover .logo-icon svg { transform: translateY(-2px); }
+  
+  .hamburger { display: none; flex-direction: column; cursor: pointer; padding: 5px; }
+  .hamburger span { width: 25px; height: 3px; background: #ffcc00; margin: 3px 0; border-radius: 2px; transition: 0.3s; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+  nav a { color:#fff; text-decoration:none; margin-left:20px; font-weight:bold; transition: opacity 0.3s; cursor: pointer; }
+  nav a:hover { opacity:0.7; }
+  nav a.active { color: #ffcc00; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .hero { text-align:center; padding:80px 20px; position:relative; overflow:hidden; }
+  .hero h1 { font-size:4rem; margin-bottom:20px; }
+  .hero h1 span { background: linear-gradient(90deg,#ffcc00,#ff6600); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero p { font-size:1.2rem; max-width:700px; margin:0 auto 30px; color: #aaa; }
+  .hero .btn { display:inline-flex; align-items:center; gap:10px; background:#ffcc00; color:#000; padding:15px 25px; border-radius:8px; font-weight:bold; text-decoration:none; transition:0.3s; margin: 0 10px; cursor: pointer; border: none; }
+  .hero .btn:hover { opacity:0.8; }
+  .hero .btn-outline { background:transparent; border:2px solid #ffcc00; color:#ffcc00; }
+  .hero .btn-outline:hover { background:#ffcc00; color:#000; }
+
+  /* Hero variations for different pages */
+  .hero.gaming-hero { background: linear-gradient(135deg, rgba(255,204,0,0.1), rgba(255,102,0,0.1)); }
+  .hero.crypto-hero { background: linear-gradient(135deg, rgba(0,204,255,0.1), rgba(0,102,255,0.1)); }
+  .hero.entertainment-hero { background: linear-gradient(135deg, rgba(255,51,102,0.1), rgba(153,51,255,0.1)); }
+  .hero.surveys-hero { background: linear-gradient(135deg, rgba(0,255,102,0.1), rgba(0,204,51,0.1)); }
+  .hero.offerwalls-hero { background: linear-gradient(135deg, rgba(255,204,0,0.1), rgba(255,102,0,0.1), rgba(0,255,102,0.1)); }
+
+  section { padding:80px 20px; }
+  h2 { font-size:3rem; margin-bottom:20px; text-align:center; }
+  h2.section-title { font-size:2.5rem; margin-bottom:30px; }
+  p { max-width:700px; margin:0 auto 20px; text-align:center; }
+
+  .grid { display:grid; gap:20px; }
+  .grid-3 { grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); }
+  .grid-2 { grid-template-columns: repeat(auto-fit,minmax(350px,1fr)); }
+  .grid-4 { grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); }
+
+  .card, .testimonial { background:#1a1a1a; border-radius:12px; padding:30px; transition:0.3s; min-height:180px; }
+  .card:hover, .testimonial:hover { transform: translateY(-5px); }
+
+  .card .icon { width:60px; height:60px; border-radius:15px; display:flex; align-items:center; justify-content:center; margin:0 auto 15px; font-size:1.5rem; }
+  .card h3, .testimonial h3 { text-align: center; margin-bottom: 15px; }
+  .card p, .testimonial p { text-align: center; color: #aaa; }
+  
+  .text-gradient-gaming { background: linear-gradient(90deg,#ffcc00,#ff6600); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .text-gradient-crypto { background: linear-gradient(90deg,#00ccff,#0066ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .text-gradient-entertainment { background: linear-gradient(90deg,#ff3366,#9933ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .text-gradient-surveys { background: linear-gradient(90deg,#00ff66,#00cc33); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .text-gradient-offerwall { background: linear-gradient(90deg,#ffcc00,#ff6600); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  .pricing-grid { display:grid; gap:20px; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); max-width:1000px; margin:0 auto; }
+  .pricing-card { background:#1a1a1a; border-radius:12px; padding:30px; position:relative; }
+  .pricing-card .badge { position:absolute; top:-15px; left:50%; transform:translateX(-50%); padding:5px 15px; border-radius:999px; font-weight:bold; background: linear-gradient(90deg,#ffcc00,#ff6600); color:#000; }
+  .pricing-card h3 { margin-bottom: 10px; font-size: 1.8rem; }
+  .pricing-card p { font-size: 2rem; margin-bottom: 20px; }
+  .pricing-card ul { list-style: none; margin-bottom: 20px; text-align: left; }
+  .pricing-card ul li { padding: 8px 0; color: #aaa; display: flex; align-items: center; gap: 10px; }
+  .pricing-card ul li:before { content: "✓"; color: #00ff66; font-weight: bold; }
+  .pricing-card .btn { display: block; width: 100%; text-align: center; padding: 12px; background: transparent; border: 2px solid #ffcc00; color: #ffcc00; border-radius: 8px; text-decoration: none; font-weight: bold; transition: 0.3s; cursor: pointer; }
+  .pricing-card .btn:hover { background: #ffcc00; color: #000; }
+  .pricing-card .btn-primary { background: #ffcc00; color: #000; border: none; }
+
+  .testimonial .stars { display:flex; gap:3px; margin-bottom:10px; color:#ffcc00; justify-content:center; }
+  .testimonial strong { display: block; margin-top: 10px; }
+
+  .proof-grid { display:grid; gap:20px; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); max-width:900px; margin:0 auto; text-align:center; }
+  .proof-grid div { background:#1a1a1a; border-radius:12px; padding:20px; }
+  .proof-grid div div:first-child { font-size: 2.5rem; font-weight: bold; margin-bottom: 10px; }
+  .proof-grid div div:last-child { color: #aaa; }
+
+  .cta { background: linear-gradient(90deg,#ffcc00, #00ccff, #00ff66, #ff6600); padding:50px 20px; text-align:center; border-radius:12px; color:#000; margin: 0 20px; }
+  .cta h2 { color: #000; }
+  .cta p { color: #000; }
+  .cta a { background:#000; color:#fff; padding:15px 25px; border-radius:8px; font-weight:bold; text-decoration:none; display: inline-block; margin-top: 20px; cursor: pointer; }
+  .cta a:hover { opacity:0.8; }
+
+  footer { text-align:center; padding:40px 20px; background:#111; font-size:0.9rem; color:#aaa; }
+
+  .read-more-btn { margin-top:10px; padding:8px 15px; border:none; border-radius:5px; cursor:pointer; background:#ffcc00; color:#000; font-weight:bold; }
+  .read-more-btn:hover { opacity:0.8; }
+
+  /* Page-specific styles */
+  .post-card { background:#1a1a1a; border-radius:12px; padding:30px; transition:0.3s; min-height: auto; }
+  .post-card:hover { transform: translateY(-5px); }
+  .post-card h3 { margin-bottom: 15px; font-size: 1.5rem; text-align: left; }
+  .post-card .meta { color: #888; font-size: 0.9rem; margin-bottom: 15px; }
+  .post-card p { color: #ccc; line-height: 1.8; text-align: left; }
+  .post-card .read-more { display: inline-block; margin-top: 15px; text-decoration: none; font-weight: bold; }
+  .post-card .read-more:hover { text-decoration: underline; }
+  .post-card .rating { margin-top: 10px; font-weight: bold; }
+
+  .post-card.gaming { border-left: 4px solid #ffcc00; }
+  .post-card.gaming:hover { box-shadow: 0 10px 30px rgba(255,204,0,0.2); }
+  .post-card.gaming h3 { color: #ffcc00; }
+  .post-card.gaming .read-more { color: #ffcc00; }
+
+  .post-card.crypto { border-left: 4px solid #00ccff; }
+  .post-card.crypto:hover { box-shadow: 0 10px 30px rgba(0,204,255,0.2); }
+  .post-card.crypto h3 { color: #00ccff; }
+  .post-card.crypto .read-more { color: #00ccff; }
+
+  .post-card.entertainment { border-left: 4px solid #ff3366; }
+  .post-card.entertainment:hover { box-shadow: 0 10px 30px rgba(255,51,102,0.2); }
+  .post-card.entertainment h3 { color: #ff3366; }
+  .post-card.entertainment .read-more { color: #ff3366; }
+  .post-card.entertainment .rating { color: #ffcc00; }
+
+  .category-card { background:#1a1a1a; border-radius:12px; padding:30px; text-align:center; transition:0.3s; }
+  .category-card:hover { transform: scale(1.05); }
+  .category-card .icon { font-size: 3rem; margin-bottom: 15px; }
+  .category-card h3 { margin-bottom: 10px; }
+  .category-card p { color: #aaa; font-size: 0.95rem; }
+
+  /* Survey specific styles */
+  .survey-card { background:#1a1a1a; border-radius:12px; padding:30px; transition:0.3s; border-left: 4px solid #00ff66; position: relative; }
+  .survey-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,255,102,0.2); }
+  .survey-card h3 { color: #00ff66; margin-bottom: 15px; font-size: 1.5rem; text-align: left; }
+  .survey-card .reward { color: #ffcc00; font-size: 1.8rem; font-weight: bold; margin-bottom: 10px; }
+  .survey-card .duration { color: #888; font-size: 0.9rem; margin-bottom: 15px; }
+  .survey-card p { color: #ccc; line-height: 1.8; text-align: left; }
+  .survey-card .btn { display: inline-block; background: #00ff66; color: #000; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: 0.3s; margin-top: 15px; cursor: pointer; border: none; }
+  .survey-card .btn:hover { opacity: 0.8; }
+  .survey-card .badge { position: absolute; top: 20px; right: 20px; background: #ff3366; color: #fff; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+
+  .feature-card { background:#1a1a1a; border-radius:12px; padding:30px; text-align:center; transition:0.3s; }
+  .feature-card:hover { transform: scale(1.05); }
+  .feature-card .icon { font-size: 3rem; margin-bottom: 15px; }
+  .feature-card h3 { margin-bottom: 10px; }
+  .feature-card p { color: #aaa; font-size: 0.95rem; }
+
+  .info-box { background: #1a1a1a; border-radius: 12px; padding: 40px; margin: 40px 0; border: 2px solid #00ff66; }
+  .info-box h3 { color: #00ff66; margin-bottom: 20px; font-size: 2rem; text-align: left; }
+  .info-box ul { list-style: none; }
+  .info-box ul li { padding: 10px 0; color: #ccc; display: flex; align-items: center; gap: 10px; text-align: left; }
+  .info-box ul li:before { content: "✓"; color: #00ff66; font-weight: bold; font-size: 1.2rem; }
+
+  /* Offerwall specific styles */
+  .offerwall-card { background:#1a1a1a; border-radius:12px; padding:30px; transition:0.3s; border: 2px solid #333; text-align: center; }
+  .offerwall-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255,204,0,0.2); border-color: #ffcc00; }
+  .offerwall-card .logo { width: 120px; height: 80px; background: #2a2a2a; border-radius: 8px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+  .offerwall-card h3 { color: #ffcc00; margin-bottom: 15px; font-size: 1.5rem; }
+  .offerwall-card .rating { color: #ffcc00; margin-bottom: 10px; font-size: 1.2rem; }
+  .offerwall-card .offers-count { color: #888; font-size: 0.9rem; margin-bottom: 15px; }
+  .offerwall-card p { color: #ccc; line-height: 1.8; margin-bottom: 20px; font-size: 0.95rem; }
+  .offerwall-card .btn { display: inline-block; background: #ffcc00; color: #000; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: 0.3s; cursor: pointer; border: none; }
+  .offerwall-card .btn:hover { opacity: 0.8; }
+
+  .earnings-card { background: linear-gradient(135deg, #1a1a1a, #2a2a2a); border-radius: 12px; padding: 30px; text-align: center; border: 2px solid #ffcc00; }
+  .earnings-card .amount { font-size: 3rem; font-weight: bold; color: #ffcc00; margin-bottom: 10px; }
+  .earnings-card .label { color: #aaa; font-size: 1.1rem; }
+
+  .testimonial-card { background:#1a1a1a; border-radius:12px; padding:25px; border-left: 4px solid #00ff66; }
+  .testimonial-card .stars { color: #ffcc00; margin-bottom: 10px; font-size: 1.2rem; }
+  .testimonial-card p { color: #ccc; font-style: italic; margin-bottom: 15px; line-height: 1.6; text-align: left; }
+  .testimonial-card .author { color: #aaa; font-weight: bold; text-align: left; }
+
+  .hero .stats { display: flex; justify-content: center; gap: 40px; margin-top: 30px; flex-wrap: wrap; }
+  .hero .stat { text-align: center; }
+  .hero .stat-number { font-size: 2.5rem; font-weight: bold; color: #00ff66; }
+  .hero .stat-label { color: #aaa; font-size: 0.9rem; }
+
+  .hero .cta-btn { display: inline-block; background: linear-gradient(90deg,#ffcc00,#ff6600); color: #000; padding: 18px 40px; border-radius: 50px; font-weight: bold; text-decoration: none; font-size: 1.2rem; transition: 0.3s; cursor: pointer; border: none; }
+  .hero .cta-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(255,204,0,0.3); }
+
+  .fade-in { opacity:0; transform:translateY(20px); animation:fadeInUp 0.8s forwards; }
+  .fade-delay-1 { animation-delay:0.2s; }
+  .fade-delay-2 { animation-delay:0.4s; }
+  .fade-delay-3 { animation-delay:0.6s; }
+
+  @keyframes fadeInUp { to { opacity:1; transform:translateY(0); } }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    h2.section-title { font-size: 1.8rem; }
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .hero .stats { gap: 20px; }
+    
+    /* Mobile Navigation */
+    nav { padding: 15px 0; }
+    .hamburger { display: flex; }
+    .nav-links { 
+      position: fixed;
+      top: 76px;
+      left: -100%;
+      width: 100%;
+      height: calc(100vh - 76px);
+      background: #0f0f0f;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 0;
+      transition: left 0.3s ease;
+      border-top: 1px solid #222;
+    }
+    .nav-links.active { left: 0; }
+    nav a { 
+      margin: 0; 
+      padding: 20px 0; 
+      width: 80%; 
+      text-align: center; 
+      border-bottom: 1px solid #222;
+      font-size: 1.2rem;
+    }
+    nav a:last-child { border-bottom: none; }
+    
+    /* Mobile-friendly buttons and spacing */
+    .hero .btn, .hero .cta-btn { 
+      width: 100%; 
+      max-width: 300px; 
+      margin: 10px auto; 
+      display: block;
+      text-align: center;
+      padding: 18px 20px;
+      font-size: 1.1rem;
+    }
+    .hero { padding: 60px 20px; }
+    section { padding: 50px 15px; }
+    
+    /* Improve touch targets */
+    .post-card .read-more, 
+    .survey-card .btn, 
+    .offerwall-card .btn,
+    .pricing-card .btn,
+    .read-more-btn { 
+      padding: 15px 25px; 
+      font-size: 1rem;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Better mobile spacing */
+    .card, .post-card, .survey-card, .offerwall-card, 
+    .testimonial, .category-card, .feature-card { 
+      padding: 25px 20px; 
+    }
+    
+    .logo-icon { width: 38px; height: 38px; }
+    nav .logo { font-size: 1.3rem; }
+    
+    /* Mobile-optimized pricing cards */
+    .pricing-card { padding: 25px 20px; }
+    .pricing-card h3 { font-size: 1.5rem; }
+    .pricing-card p { font-size: 1.8rem; }
+    
+    /* Better mobile stats display */
+    .hero .stat-number { font-size: 2rem; }
+    .earnings-card .amount { font-size: 2.5rem; }
+    
+    /* Mobile CTA adjustments */
+    .cta { margin: 0 10px; padding: 40px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="container">
+  <div class="logo" onclick="showPage('home')">
+    <div class="logo-icon">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Main gradient for arrow -->
+          <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffcc00;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#ff9900;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ff6600;stop-opacity:1" />
+          </linearGradient>
+          
+          <!-- Glow gradient -->
+          <radialGradient id="glowGradient">
+            <stop offset="0%" style="stop-color:#ffcc00;stop-opacity:0.3" />
+            <stop offset="100%" style="stop-color:#ff6600;stop-opacity:0" />
+          </radialGradient>
+          
+          <!-- Accent gradient -->
+          <linearGradient id="accentGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#00ffaa;stop-opacity:0.8" />
+            <stop offset="100%" style="stop-color:#00ccff;stop-opacity:0.8" />
+          </linearGradient>
+        </defs>
+        
+        <!-- Outer glow circle -->
+        <circle cx="50" cy="50" r="45" fill="url(#glowGradient)" opacity="0.5"/>
+        
+        <!-- Main hexagon with sleek border -->
+        <path d="M50 8 L85 27 L85 65 L50 84 L15 65 L15 27 Z" 
+              fill="none" 
+              stroke="url(#mainGradient)" 
+              stroke-width="2.5"
+              opacity="0.6"/>
+        
+        <!-- Inner hexagon (smaller) -->
+        <path d="M50 15 L78 30 L78 60 L50 75 L22 60 L22 30 Z" 
+              fill="none" 
+              stroke="url(#mainGradient)" 
+              stroke-width="1.5"
+              opacity="0.4"/>
+        
+        <!-- Stylized 3D arrow pointing north -->
+        <!-- Arrow base (3D effect) -->
+        <path d="M45 70 L45 48 L35 48 L50 25 L65 48 L55 48 L55 70 Z" 
+              fill="#1a1a1a" 
+              opacity="0.7"/>
+        
+        <!-- Main arrow with gradient -->
+        <path d="M44 68 L44 46 L34 46 L50 23 L66 46 L56 46 L56 68 Z" 
+              fill="url(#mainGradient)"/>
+        
+        <!-- Arrow highlight for depth -->
+        <path d="M48 65 L48 46 L42 46 L50 30 L50 23 L66 46 L56 46 L56 65 Z" 
+              fill="url(#mainGradient)" 
+              opacity="0.4"/>
+        
+        <!-- Accent line on arrow -->
+        <line x1="50" y1="28" x2="50" y2="42" 
+              stroke="url(#accentGradient)" 
+              stroke-width="2" 
+              stroke-linecap="round"/>
+        
+        <!-- Top point glow -->
+        <circle cx="50" cy="25" r="3" fill="#00ffaa" opacity="0.8">
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+    <span>UpNort</span>
+  </div>
+  
+  <div class="hamburger" onclick="toggleMobileMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  
+  <div class="nav-links">
+    <a onclick="showPage('gaming'); closeMobileMenu();" id="nav-gaming">Gaming</a>
+    <a onclick="showPage('crypto'); closeMobileMenu();" id="nav-crypto">Crypto</a>
+    <a onclick="showPage('entertainment'); closeMobileMenu();" id="nav-entertainment">Entertainment</a>
+    <a onclick="showPage('surveys'); closeMobileMenu();" id="nav-surveys">Surveys</a>
+    <a onclick="showPage('offerwalls'); closeMobileMenu();" id="nav-offerwalls">Offerwalls</a>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="home-page" class="page active">
+  <section class="hero">
+    <h1>Discover. Engage. <span>Earn.</span></h1>
+    <p>Join UpNort's immersive platform featuring gaming news, crypto insights, entertainment updates, surveys, and exclusive offerwalls. Your one-stop destination for content and rewards.</p>
+    <button class="btn" onclick="showPage('gaming')">Explore Now</button>
+    <button class="btn btn-outline" onclick="showPage('offerwalls')">View Offerwalls</button>
+  </section>
+
+  <section id="about">
+    <h2>What is <span class="text-gradient-gaming">UpNort?</span></h2>
+    <p>UpNort connects creators and enthusiasts across multiple niches including gaming, crypto, entertainment, surveys, and offerwalls.</p>
+    <div class="grid grid-3 container">
+      <div class="card fade-in fade-delay-1">
+        <div class="icon" style="background: linear-gradient(90deg,#ffcc00,#ff6600);">🎮</div>
+        <h3 class="text-gradient-gaming">Diverse Content Hub</h3>
+        <p>Access gaming news, crypto trends, movie reviews, and entertainment updates all in one place. Stay informed with curated content from industry experts.</p>
+      </div>
+      <div class="card fade-in fade-delay-2">
+        <div class="icon" style="background: linear-gradient(90deg,#00ccff,#0066ff);">👥</div>
+        <h3 class="text-gradient-crypto">Vibrant Community</h3>
+        <p>Connect with thousands of like-minded enthusiasts. Share insights, participate in discussions, and build lasting relationships with fellow creators.</p>
+      </div>
+      <div class="card fade-in fade-delay-3">
+        <div class="icon" style="background: linear-gradient(90deg,#00ff66,#00cc33);">💰</div>
+        <h3 class="text-gradient-offerwall">Earn Rewards</h3>
+        <p>Complete surveys, engage with offerwalls, and participate in exclusive campaigns. Turn your time and engagement into real rewards.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <h2>What Users <span class="text-gradient-gaming">Say</span></h2>
+    <p>Real stories from our community</p>
+    <div class="grid grid-3 container">
+      <div class="testimonial fade-in fade-delay-1">
+        <div class="stars">★★★★★</div>
+        <p>"UpNort has completely changed how I stay updated on gaming and crypto. The offerwall rewards are incredible, and I've earned over $200 in just two months!"</p>
+        <strong>Marcus Chen</strong>
+      </div>
+      <div class="testimonial fade-in fade-delay-2">
+        <div class="stars">★★★★★</div>
+        <p>"As a content creator, UpNort gives me the perfect platform to share my insights. The community engagement is unmatched, and the revenue sharing model is fair."</p>
+        <strong>Sarah Johnson</strong>
+      </div>
+      <div class="testimonial fade-in fade-delay-3">
+        <div class="stars">★★★★★</div>
+        <p>"I love the variety of content and earning opportunities. From movie reviews to crypto analysis, UpNort has everything I need in one convenient platform."</p>
+        <strong>David Rodriguez</strong>
+      </div>
+    </div>
+  </section>
+
+  <section id="example-posts">
+    <h2>Latest Posts</h2>
+    <div class="container">
+      <div class="card fade-in fade-delay-1">
+        <h3>🎮 Top 5 Gaming Releases This Month</h3>
+        <p class="post-content">Discover the most anticipated game launches including next-gen titles, indie gems, and AAA blockbusters...</p>
+        <button class="read-more-btn" onclick="toggleReadMore(this, 'From stunning open-world adventures to competitive multiplayer experiences, this month brings incredible diversity to gamers worldwide. We break down release dates, platform availability, early reviews, and what makes each title worth your attention. Whether you\'re into action RPGs or tactical shooters, there\'s something exciting launching soon.')">Read More</button>
+      </div>
+      <div class="card fade-in fade-delay-2" style="margin-top: 20px;">
+        <h3>💎 Crypto Market Analysis: DeFi Trends</h3>
+        <p class="post-content">Explore the latest developments in decentralized finance and emerging blockchain technologies...</p>
+        <button class="read-more-btn" onclick="toggleReadMore(this, 'The DeFi landscape continues to evolve with innovative protocols, yield farming opportunities, and layer-2 scaling solutions. Our expert analysis covers market movements, promising projects, regulatory updates, and investment strategies. Stay ahead of the curve with insights on NFT marketplaces, staking rewards, and the future of Web3 infrastructure.')">Read More</button>
+      </div>
+      <div class="card fade-in fade-delay-3" style="margin-top: 20px;">
+        <h3>🎬 Must-Watch Movies & Series This Week</h3>
+        <p class="post-content">Your weekly guide to the hottest entertainment releases across all streaming platforms...</p>
+        <button class="read-more-btn" onclick="toggleReadMore(this, 'From blockbuster films to binge-worthy series, we\'ve curated the best entertainment options for every taste. Our reviews cover plot highlights (spoiler-free!), cast performances, production quality, and viewer ratings. Plus, discover hidden gems and indie productions that deserve your attention this week.')">Read More</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <h2>Simple <span class="text-gradient-gaming">Pricing</span></h2>
+    <div class="pricing-grid container">
+      <div class="pricing-card">
+        <h3>Free</h3>
+        <p>$0 <span style="font-size: 1rem; color: #aaa;">/mo</span></p>
+        <ul>
+          <li>Access all content sections</li>
+          <li>Limited offerwalls</li>
+          <li>Community support</li>
+        </ul>
+        <button class="btn">Get Started</button>
+      </div>
+      <div class="pricing-card">
+        <div class="badge">Popular</div>
+        <h3>Pro</h3>
+        <p>$9 <span style="font-size: 1rem; color: #aaa;">/mo</span></p>
+        <ul>
+          <li>Everything in Free</li>
+          <li>Unlimited offerwalls</li>
+          <li>Priority support</li>
+          <li>Ad-free experience</li>
+        </ul>
+        <button class="btn btn-primary">Upgrade Now</button>
+      </div>
+      <div class="pricing-card">
+        <h3>Creator</h3>
+        <p>$29 <span style="font-size: 1rem; color: #aaa;">/mo</span></p>
+        <ul>
+          <li>Everything in Pro</li>
+          <li>Post creation access</li>
+          <li>Analytics dashboard</li>
+          <li>Revenue sharing</li>
+        </ul>
+        <button class="btn">Contact Sales</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="proof">
+    <h2>Trusted by <span class="text-gradient-gaming">Thousands</span></h2>
+    <div class="proof-grid container">
+      <div>
+        <div class="text-gradient-gaming">50K+</div>
+        <div>Active Users</div>
+      </div>
+      <div>
+        <div class="text-gradient-crypto">10K+</div>
+        <div>Posts Published</div>
+      </div>
+      <div>
+        <div class="text-gradient-offerwall">5K+</div>
+        <div>Daily Visitors</div>
+      </div>
+      <div>
+        <div class="text-gradient-gaming">$100K+</div>
+        <div>Rewards Paid</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="cta">
+      <h2>Ready to Start Your Journey?</h2>
+      <p>Join UpNort today and explore gaming, crypto, entertainment, surveys, and exclusive offerwalls.</p>
+      <a onclick="showPage('gaming')">Get Started Free</a>
+    </div>
+  </section>
+</div>
+
+<!-- GAMING PAGE -->
+<div id="gaming-page" class="page">
+  <section class="hero gaming-hero">
+    <h1><span>Gaming</span> Hub</h1>
+    <p>Your ultimate destination for gaming news, reviews, tips, and the latest industry trends</p>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title">Browse by <span class="text-gradient-gaming">Category</span></h2>
+    <div class="grid grid-3">
+      <div class="category-card">
+        <div class="icon">🎮</div>
+        <h3>Console Gaming</h3>
+        <p>PlayStation, Xbox, Nintendo Switch news and reviews</p>
+      </div>
+      <div class="category-card">
+        <div class="icon">💻</div>
+        <h3>PC Gaming</h3>
+        <p>Latest PC releases, hardware guides, and gaming tips</p>
+      </div>
+      <div class="category-card">
+        <div class="icon">📱</div>
+        <h3>Mobile Gaming</h3>
+        <p>iOS and Android game reviews and recommendations</p>
+      </div>
+      <div class="category-card">
+        <div class="icon">🏆</div>
+        <h3>Esports</h3>
+        <p>Tournament coverage, team news, and competitive gaming</p>
+      </div>
+      <div class="category-card">
+        <div class="icon">🎯</div>
+        <h3>Game Guides</h3>
+        <p>Walkthroughs, tips, tricks, and strategy guides</p>
+      </div>
+      <div class="category-card">
+        <div class="icon">🔥</div>
+        <h3>Trending</h3>
+        <p>Viral gaming moments and trending topics</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title">Latest <span class="text-gradient-gaming">Posts</span></h2>
+    <div class="grid grid-2">
+      <div class="post-card gaming">
+        <h3>🎮 Top 10 Most Anticipated Games of 2024</h3>
+        <div class="meta">Posted 2 hours ago • by GameMaster</div>
+        <p>The gaming industry is gearing up for an incredible year with blockbuster releases across all platforms. From highly anticipated sequels to innovative new IPs, 2024 promises to deliver unforgettable gaming experiences that will shape the future of interactive entertainment.</p>
+        <a href="#" class="read-more">Read Full Article →</a>
+      </div>
+
+      <div class="post-card gaming">
+        <h3>🏆 Major Esports Tournament Results & Analysis</h3>
+        <div class="meta">Posted 5 hours ago • by ProGamerX</div>
+        <p>This weekend's championship finals delivered jaw-dropping moments and unexpected upsets. We break down the key plays, standout performances, and what these results mean for the competitive scene moving forward into the next season.</p>
+        <a href="#" class="read-more">Read Full Article →</a>
+      </div>
+
+      <div class="post-card gaming">
+        <h3>💻 Best Gaming PC Builds for Every Budget</h3>
+        <div class="meta">Posted 1 day ago • by TechGuru</div>
+        <p>Whether you're a casual gamer or a hardcore enthusiast, we've compiled the ultimate guide to building your perfect gaming rig. From budget-friendly setups to high-end powerhouses, find the ideal configuration that matches your needs and wallet.</p>
+        <a href="#" class="read-more">Read Full Article →</a>
+      </div>
+
+      <div class="post-card gaming">
+        <h3>📱 Mobile Gaming Revolution: Cloud Gaming Arrives</h3>
+        <div class="meta">Posted 2 days ago • by MobileGuru</div>
+        <p>Cloud gaming services are transforming how we play on mobile devices. Stream AAA titles directly to your smartphone without downloads or expensive hardware. We test the major platforms and reveal which service offers the best performance and game library.</p>
+        <a href="#" class="read-more">Read Full Article →</a>
+      </div>
+
+      <div class="post-card gaming">
+        <h3>🎯 Complete Beginner's Guide to Battle Royale Games</h3>
+        <div class="meta">Posted 3 days ago • by StrategyKing</div>
+        <p>New to battle royale games? This comprehensive guide covers everything from basic mechanics to advanced strategies. Learn how to survive longer, secure more victories, and dominate the competition in today's most popular gaming genre.</p>
+        <a href="#" class="read-more">Read Full Article →</a>
+      </div>
+
+      <div class="post-card gaming">
+        <h3>🔥 Game Industry News: Major Studio Acquisitions</h3>
+        <div class="meta">Posted 4 days ago • by NewsDesk</div>
+        <p>The gaming industry landscape is shifting with recent major acquisitions and partnerships. We analyze what these business moves mean for gamers, exclusive titles, and the future direction of your favorite franchises and studios.</p>
+        <a href="#" class="read-more">Read Full Article →</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CRYPTO PAGE -->
+<div id="crypto-page" class="page">
+  <section class="hero crypto-hero">
+    <h1><span>Crypto</span> Insights</h1>
+    <p>Your trusted source for cryptocurrency news, market analysis, and blockchain technology updates</p>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title">Explore <span class="text-gradient-crypto">Topics</span></h2>
+    <div class="grid grid-3">
+      <div class="category-card">
+        <div class="icon">₿</div>
+        <h3>Bitcoin & Altcoins</h3>
+        <p>Latest news and analysis on major cryptocurrencies</p>
+      </div>
+      <div class="category-card">
+        <div class="icon">💎</div>
+        <h3>DeFi</h3>
+        <p>Decentralized finance protocols and opportunities</p>
+      </div>
+      <div class="category-card">
+        <div class="icon">🎨</div>
+        <h3>NFTs</h3>
+        <p>Digital collectibles, art, and NFT marketplaces</p>
+      </div>
+      <div class="category-card">
+        <div class="icon">🔗</div>
+        <h3>Blockchain Tech</h3>
+        <p>Layer-2 solutions, smart contracts, and innovations</p>
+      </div>
+      <div class="category-card">
+        <div class="icon">📊</div>
+        <h3>Market Analysis</h3>
+        <p>Price predictions, trends, and trading strategies</p>
+      </div>
+      <div class="category-card">
+        <div class="icon">🌐</div>
+        <h3>Web3</h3>
+        <p>The future of decentralized internet and dApps</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title">Latest <span class="text-gradient-crypto">Articles</span></h2>
+    <div class="grid grid-2">
+      <div class="post-card crypto">
+        <h3>₿ Bitcoin Reaches New All-Time High: What's Next?</h3>
+        <div class="meta">Posted 1 hour ago • by CryptoAnalyst</div>
+        <p>Bitcoin has shattered previous records, reaching unprecedented price levels. We analyze the factors driving this surge, from institutional adoption to macroeconomic conditions, and explore what traders and investors should watch for in the coming weeks.</p>
+        <a href="#" class="read-more">Read Full Article →</a>
+      </div>
+
+      <div class="post-card crypto">
+        <h3>💎 DeFi Revolution: Top Yield Farming Opportunities</h3>
+        <div class="meta">Posted 3 hours ago • by DeFiGuru</div>
+        <p>Discover the most profitable yield farming strategies in today's DeFi landscape. From liquidity pools to staking protocols, we break down risk levels, APY rates, and smart contract security to help you maximize returns while minimizing exposure.</p>
+        <a href="#" class="read-more">Read Full Article →</a>
+      </div>
+
+      <div class="post-card crypto">
+        <h3>🎨 NFT Market Trends: Blue Chip Collections Analysis</h3>
+        <div class="meta">Posted 6 hours ago • by NFTExpert</div>
+        <p>The NFT market continues to evolve with established collections showing remarkable resilience. We examine floor prices, trading volumes, and community strength across major NFT projects, helping collectors make informed investment decisions.</p>
+        <a href="#" class="read-more">Read Full Article →</a>
+      </div>
+
+      <div class="post-card crypto">
+        <h3>🔗 Ethereum's Latest Upgrade: What Changed?</h3>
+        <div class="meta">Posted 1 day ago • by BlockchainDev</div>
+        <p>Ethereum's recent network upgrade brings significant improvements to scalability, security, and sustainability. Learn about the technical enhancements, reduced gas fees, and what these changes mean for developers and users of the world's leading smart contract platform.</p>
+        <a href="#" class="read-more">Read Full Article →</a>
+      </div>
+
+      <div class="post-card crypto">
+        <h3>📊 Altcoin Season: Hidden Gems to Watch</h3>
+        <div class="meta">Posted 2 days ago • by AltcoinHunter</div>
+        <p>While Bitcoin dominates headlines, several promising altcoins are showing strong fundamentals and growth potential. Our research team identifies emerging projects with solid technology, active development, and real-world use cases worth considering.</p>
+        <a href="#" class="read-more">Read Full Article →</a>
+      </div>
+
+      <div class="post-card crypto">
+        <h3>🌐 Web3 Gaming: The Future of Play-to-Earn</h3>
+        <div class="meta">Posted 3 days ago • by Web3Pioneer</div>
+        <p>Web3 gaming is transforming how players interact with digital worlds. Explore the latest play-to-earn games, metaverse platforms, and blockchain-based gaming economies that are creating real earning opportunities for gamers worldwide.</p>
+        <a href="#" class="read-more">Read Full Article →</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ENTERTAINMENT PAGE -->
+<div id="entertainment-page" class="page">
+  <section class="hero entertainment-hero">
+    <h1><span>Entertainment</span> Central</h1>
+    <p>Movies, TV shows, streaming releases, and everything entertainment</p>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title">Browse <span class="text-gradient-entertainment">Categories</span></h2>
+    <div class="grid grid-3">
+      <div class="category-card">
+        <div class="icon">🎬</div>
+        <h3>Movies</h3>
+        <p>Latest releases, reviews, and cinema news</p>
+      </div>
+      <div class="category-card">
+        <div class="icon">📺</div>
+        <h3>TV Series</h3>
+        <p>Binge-worthy shows and episode breakdowns</p>
+      </div>
+      <div class="category-card">
+        <div class="icon">🎭</div>
+        <h3>Streaming</h3>
+        <p>Netflix, Disney+, HBO, and more</p>
+      </div>
+      <div class="category-card">
+        <div class="icon">⭐</div>
+        <h3>Celebrity News</h3>
+        <p>Latest updates from Hollywood and beyond</p>
+      </div>
+      <div class="category-card">
+        <div class="icon">🎵</div>
+        <h3>Music</h3>
+        <p>Album reviews, artist news, and playlists</p>
+      </div>
+      <div class="category-card">
+        <div class="icon">🎪</div>
+        <h3>Events</h3>
+        <p>Premieres, festivals, and award shows</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title">Latest <span class="text-gradient-entertainment">Reviews</span></h2>
+    <div class="grid grid-2">
+      <div class="post-card entertainment">
+        <h3>🎬 New Blockbuster Breaks Box Office Records</h3>
+        <div class="meta">Posted 2 hours ago • by FilmCritic</div>
+        <p>The latest action-packed blockbuster has taken theaters by storm, earning record-breaking opening weekend numbers. With stunning visuals, compelling performances, and a gripping storyline, this film delivers everything audiences crave in a summer hit.</p>
+        <div class="rating">★★★★★ 9/10</div>
+        <a href="#" class="read-more">Read Full Review →</a>
+      </div>
+
+      <div class="post-card entertainment">
+        <h3>📺 Must-Watch Series: Drama That Captivates</h3>
+        <div class="meta">Posted 4 hours ago • by SeriesBinger</div>
+        <p>This critically acclaimed drama series has viewers hooked with its intricate plot twists and exceptional character development. Available now on major streaming platforms, it's the perfect weekend binge with all episodes released simultaneously.</p>
+        <div class="rating">★★★★☆ 8.5/10</div>
+        <a href="#" class="read-more">Read Full Review →</a>
+      </div>
+
+      <div class="post-card entertainment">
+        <h3>🎭 Streaming Wars: New Content This Week</h3>
+        <div class="meta">Posted 1 day ago • by StreamGuide</div>
+        <p>All major streaming platforms are dropping exciting new content this week. From original series to blockbuster movies and exclusive documentaries, we've compiled everything worth watching across Netflix, Disney+, HBO Max, and Amazon Prime.</p>
+        <a href="#" class="read-more">Read Full Article →</a>
+      </div>
+
+      <div class="post-card entertainment">
+        <h3>⭐ Awards Season Preview: Frontrunners Revealed</h3>
+        <div class="meta">Posted 1 day ago • by AwardInsider</div>
+        <p>As awards season approaches, industry insiders reveal the films and performances generating the most buzz. From Best Picture contenders to breakthrough performances, here's your comprehensive guide to this year's potential winners.</p>
+        <a href="#" class="read-more">Read Full Article →</a>
+      </div>
+
+      <div class="post-card entertainment">
+        <h3>🎵 Album Review: Chart-Topping New Release</h3>
+        <div class="meta">Posted 2 days ago • by MusicReviewer</div>
+        <p>The latest album from this acclaimed artist showcases artistic evolution and musical maturity. With genre-blending tracks and deeply personal lyrics, this release is already climbing charts and earning critical praise from music publications worldwide.</p>
+        <div class="rating">★★★★☆ 8/10</div>
+        <a href="#" class="read-more">Read Full Review →</a>
+      </div>
+
+      <div class="post-card entertainment">
+        <h3>🎪 Film Festival Highlights: Indie Gems Discovered</h3>
+        <div class="meta">Posted 3 days ago • by FestivalScout</div>
+        <p>This year's film festival unveiled remarkable independent films that deserve mainstream attention. We spotlight the breakout hits, rising directors, and unique storytelling approaches that are reshaping cinema's future landscape.</p>
+        <a href="#" class="read-more">Read Full Article →</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- SURVEYS PAGE -->
+<div id="surveys-page" class="page">
+  <section class="hero surveys-hero">
+    <h1>Earn with <span>Surveys</span></h1>
+    <p>Share your opinions and get rewarded. Complete surveys from trusted partners and earn real money.</p>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-number">$50K+</div>
+        <div class="stat-label">Paid to Users</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">25K+</div>
+        <div class="stat-label">Active Members</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Daily Surveys</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title">How It <span class="text-gradient-surveys">Works</span></h2>
+    <div class="grid grid-3">
+      <div class="feature-card">
+        <div class="icon">📝</div>
+        <h3>Sign Up Free</h3>
+        <p>Create your account in seconds and start earning immediately</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">💭</div>
+        <h3>Share Opinions</h3>
+        <p>Complete surveys on topics you care about</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">💰</div>
+        <h3>Get Paid</h3>
+        <p>Earn rewards and cash out via PayPal or gift cards</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title">Available <span class="text-gradient-surveys">Surveys</span></h2>
+    <div class="grid grid-2">
+      <div class="survey-card">
+        <span class="badge">HOT</span>
+        <div class="reward">$5.00</div>
+        <h3>Consumer Products Survey</h3>
+        <div class="duration">⏱️ 15 minutes • 📊 100 spots left</div>
+        <p>Share your opinions about everyday consumer products and help brands improve their offerings. Perfect for anyone who loves shopping and trying new products.</p>
+        <button class="btn">Start Survey</button>
+      </div>
+
+      <div class="survey-card">
+        <div class="reward">$3.50</div>
+        <h3>Technology Usage Study</h3>
+        <div class="duration">⏱️ 10 minutes • 📊 150 spots left</div>
+        <p>Tell us about your technology habits and preferences. Help shape the future of tech products and services used by millions worldwide.</p>
+        <button class="btn">Start Survey</button>
+      </div>
+
+      <div class="survey-card">
+        <span class="badge">NEW</span>
+        <div class="reward">$7.00</div>
+        <h3>Entertainment Preferences Research</h3>
+        <div class="duration">⏱️ 20 minutes • 📊 75 spots left</div>
+        <p>Share your viewing habits, favorite shows, and entertainment preferences. Influence what content gets produced by major streaming platforms.</p>
+        <button class="btn">Start Survey</button>
+      </div>
+
+      <div class="survey-card">
+        <div class="reward">$4.00</div>
+        <h3>Health & Wellness Survey</h3>
+        <div class="duration">⏱️ 12 minutes • 📊 200 spots left</div>
+        <p>Provide insights on health and wellness products. Your feedback helps companies develop better solutions for healthier living.</p>
+        <button class="btn">Start Survey</button>
+      </div>
+
+      <div class="survey-card">
+        <div class="reward">$6.00</div>
+        <h3>Travel & Lifestyle Study</h3>
+        <div class="duration">⏱️ 18 minutes • 📊 120 spots left</div>
+        <p>Share your travel experiences and lifestyle choices. Help tourism companies and travel brands improve their services and offerings.</p>
+        <button class="btn">Start Survey</button>
+      </div>
+
+      <div class="survey-card">
+        <span class="badge">HIGH PAY</span>
+        <div class="reward">$10.00</div>
+        <h3>Professional Services Feedback</h3>
+        <div class="duration">⏱️ 25 minutes • 📊 50 spots left</div>
+        <p>Provide detailed feedback on professional services and business solutions. Ideal for professionals with industry experience.</p>
+        <button class="btn">Start Survey</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="info-box">
+      <h3>Why Choose UpNort Surveys?</h3>
+      <ul>
+        <li>Instant payment processing - get paid within 24 hours</li>
+        <li>No minimum payout threshold - cash out anytime</li>
+        <li>Trusted by over 25,000 active members worldwide</li>
+        <li>Multiple payment options: PayPal, gift cards, and more</li>
+        <li>Daily survey opportunities in various categories</li>
+        <li>Mobile-friendly surveys - earn on the go</li>
+        <li>Privacy protected - your data is secure</li>
+        <li>24/7 customer support for all members</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<!-- OFFERWALLS PAGE -->
+<div id="offerwalls-page" class="page">
+  <section class="hero offerwalls-hero">
+    <h1><span>Offerwalls</span> Hub</h1>
+    <p>Access multiple premium offerwalls in one place. Complete offers, play games, and earn real rewards!</p>
+    <button class="cta-btn" onclick="document.getElementById('offerwalls-section').scrollIntoView({behavior: 'smooth'})">Start Earning Now 🚀</button>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title">Why Choose <span class="text-gradient-offerwall">Our Offerwalls?</span></h2>
+    <div class="grid grid-4">
+      <div class="feature-card">
+        <div class="icon">🎯</div>
+        <h3>Multiple Partners</h3>
+        <p>Access 10+ premium offerwalls</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">💎</div>
+        <h3>High Payouts</h3>
+        <p>Competitive rewards for every offer</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">⚡</div>
+        <h3>Instant Credit</h3>
+        <p>Get paid immediately upon completion</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🛡️</div>
+        <h3>Verified Safe</h3>
+        <p>All offers are screened and legitimate</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="grid grid-3" style="margin-bottom: 60px;">
+      <div class="earnings-card">
+        <div class="amount">$100K+</div>
+        <div class="label">Total Paid Out</div>
+      </div>
+      <div class="earnings-card">
+        <div class="amount">50K+</div>
+        <div class="label">Active Users</div>
+      </div>
+      <div class="earnings-card">
+        <div class="amount">5000+</div>
+        <div class="label">Daily Offers</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" id="offerwalls-section">
+    <h2 class="section-title">Available <span class="text-gradient-offerwall">Offerwalls</span></h2>
+    <div class="grid grid-2">
+      <div class="offerwall-card">
+        <div class="logo">🎮</div>
+        <h3>OfferToro</h3>
+        <div class="rating">★★★★★ 4.8/5</div>
+        <div class="offers-count">📊 1,200+ Active Offers</div>
+        <p>Premium offerwall with high-paying opportunities. Complete surveys, download apps, and sign up for services to earn big rewards.</p>
+        <button class="btn">Access OfferToro</button>
+      </div>
+
+      <div class="offerwall-card">
+        <div class="logo">💰</div>
+        <h3>AdGate Media</h3>
+        <div class="rating">★★★★★ 4.9/5</div>
+        <div class="offers-count">📊 2,500+ Active Offers</div>
+        <p>Industry-leading offerwall with the most diverse selection of offers. From simple tasks to high-value conversions.</p>
+        <button class="btn">Access AdGate</button>
+      </div>
+
+      <div class="offerwall-card">
+        <div class="logo">🎯</div>
+        <h3>AdGem</h3>
+        <div class="rating">★★★★☆ 4.7/5</div>
+        <div class="offers-count">📊 1,800+ Active Offers</div>
+        <p>Trusted offerwall featuring mobile app installs, surveys, and video offers. Quick payouts and excellent support.</p>
+        <button class="btn">Access AdGem</button>
+      </div>
+
+      <div class="offerwall-card">
+        <div class="logo">⚡</div>
+        <h3>CPX Research</h3>
+        <div class="rating">★★★★★ 4.8/5</div>
+        <div class="offers-count">📊 800+ Active Surveys</div>
+        <p>Specialized in high-quality surveys with excellent match rates. Perfect for users who prefer survey-based earnings.</p>
+        <button class="btn">Access CPX</button>
+      </div>
+
+      <div class="offerwall-card">
+        <div class="logo">🔥</div>
+        <h3>Revenue Universe</h3>
+        <div class="rating">★★★★☆ 4.6/5</div>
+        <div class="offers-count">📊 1,500+ Active Offers</div>
+        <p>Well-established offerwall with a mix of short and long-term offers. Great for maximizing daily earnings.</p>
+        <button class="btn">Access RevenueU</button>
+      </div>
+
+      <div class="offerwall-card">
+        <div class="logo">💎</div>
+        <h3>Timewall</h3>
+        <div class="rating">★★★★★ 4.9/5</div>
+        <div class="offers-count">📊 600+ Active Offers</div>
+        <p>Premium gaming offerwall. Play mobile games, reach milestones, and earn substantial rewards for your gameplay.</p>
+        <button class="btn">Access Timewall</button>
+      </div>
+
+      <div class="offerwall-card">
+        <div class="logo">🎪</div>
+        <h3>Lootably</h3>
+        <div class="rating">★★★★☆ 4.5/5</div>
+        <div class="offers-count">📊 1,000+ Active Offers</div>
+        <p>User-friendly offerwall with excellent mobile optimization. Perfect for earning on-the-go with your smartphone.</p>
+        <button class="btn">Access Lootably</button>
+      </div>
+
+      <div class="offerwall-card">
+        <div class="logo">🌟</div>
+        <h3>Notik</h3>
+        <div class="rating">★★★★☆ 4.7/5</div>
+        <div class="offers-count">📊 900+ Active Offers</div>
+        <p>Innovative offerwall with unique opportunities. Features video watching, surveys, and exclusive promotional offers.</p>
+        <button class="btn">Access Notik</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title">What Users <span class="text-gradient-offerwall">Say</span></h2>
+    <div class="grid grid-3">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"I've been using UpNort's offerwalls for 3 months and earned over $500! The variety of offers is amazing and payouts are instant."</p>
+        <div class="author">- James Martinez</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Best offerwall platform I've used. Having multiple partners in one place saves so much time. Highly recommend!"</p>
+        <div class="author">- Emily Chen</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"The gaming offers are my favorite. I get paid to play games I enjoy. It's literally the perfect side hustle!"</p>
+        <div class="author">- Ryan Taylor</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <p>© 2024 UpNort. All rights reserved.</p>
+  <p>Your gateway to gaming, crypto, entertainment, and rewards.</p>
+</footer>
+
+<script>
+function showPage(pageName) {
+  // Hide all pages
+  const pages = document.querySelectorAll('.page');
+  pages.forEach(page => page.classList.remove('active'));
+  
+  // Remove active class from all nav links
+  const navLinks = document.querySelectorAll('nav a');
+  navLinks.forEach(link => link.classList.remove('active'));
+  
+  // Show selected page
+  const selectedPage = document.getElementById(pageName + '-page');
+  if (selectedPage) {
+    selectedPage.classList.add('active');
+    
+    // Add active class to corresponding nav link
+    const activeNavLink = document.getElementById('nav-' + pageName);
+    if (activeNavLink) {
+      activeNavLink.classList.add('active');
+    }
+  }
+  
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleMobileMenu() {
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  hamburger.classList.toggle('active');
+  navLinks.classList.toggle('active');
+}
+
+function closeMobileMenu() {
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  hamburger.classList.remove('active');
+  navLinks.classList.remove('active');
+}
+
+function toggleReadMore(btn, fullContent) {
+  const content = btn.previousElementSibling;
+  if (btn.textContent === "Read More") {
+    content.textContent = fullContent;
+    btn.textContent = "Read Less";
+  } else {
+    const shortContent = content.textContent.substring(0, 100) + '...';
+    content.textContent = shortContent;
+    btn.textContent = "Read More";
+  }
+}
+
+const faders = document.querySelectorAll('.fade-in');
+const observer = new IntersectionObserver((entries, obs) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.style.animationPlayState='running';
+      obs.unobserve(entry.target);
+    }
+  });
+},{threshold:0.2});
+faders.forEach(fader => { fader.style.animationPlayState = 'paused'; observer.observe(fader); });
+</script>
+</body>
+</html>
